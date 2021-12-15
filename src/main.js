@@ -19,11 +19,11 @@ const template = [
     label: "File",
     submenu: [
       {
-        label: "Open",
+        label: "Open electron docs",
         type: "checkbox",
         checked: "true",
         click: function () {
-          shell.openExternal("https://www.electronjs.org/docs/api");
+          shell.openExternal("https://www.electronjs.org/docs/latest");
         },
       },
       {
