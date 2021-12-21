@@ -1,8 +1,10 @@
 {
-  "name": "react-electron",
+  "name": "react-electron-12",
   "version": "0.1.0",
   "private": true,
   "main": "src/main.js",
+  "author": "peacepiece",
+  "description": "react with electron",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
@@ -13,11 +15,12 @@
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"yarn react-scripts start\" \"yarn electron\" ",
+    "electron": "wait-on http://localhost:3000 && electron .",
+    "start:react": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "electron": "electron ."
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -38,6 +41,8 @@
     ]
   },
   "devDependencies": {
-    "electron": "^16.0.4"
+    "concurrently": "^6.5.1",
+    "electron": "^16.0.5",
+    "wait-on": "^6.0.0"
   }
 }

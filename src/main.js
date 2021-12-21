@@ -1,51 +1,19 @@
-const { app, BrowserWindow, Menu, shell } = require("electron");
-// include the Node.js 'path' module at the top of your file
-const path = require("path");
-// modify your existing createWindow() function
+const { app, BrowserWindow } = require('electron');
+const path = require('path');
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: 800,
+    height: 600,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      nodeIntegration: true,
+      contextIsolation: false,
     },
   });
-  // win.loadFile("index.html");
-  win.loadURL("http://localhost:3000");
+  win.loadURL('http://localhost:3000');
 }
-
-const template = [
-  {
-    label: "File",
-    submenu: [
-      {
-        label: "Open electron docs",
-        type: "checkbox",
-        checked: "true",
-        click: function () {
-          shell.openExternal("https://www.electronjs.org/docs/latest");
-        },
-      },
-      {
-        type: "separator",
-      },
-      {
-        role: "toggleDevTools",
-      },
-      {
-        type: "separator",
-      },
-      {
-        label: "Close",
-      },
-    ],
-  },
-];
-const menu = Menu.buildFromTemplate(template);
-Menu.setApplicationMenu(menu);
 app.whenReady().then(() => {
   createWindow();
 });
-app.on("window-all-closed", function () {
-  if (process.platform !== "darwin") app.quit();
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') app.quit();
 });

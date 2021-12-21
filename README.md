@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+# React에 electron 추가 그리고 한번에 실행하기
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 기본 환경 세팅
 
-## Available Scripts
+`npx create-react-app react-electron-12`
 
-In the project directory, you can run:
+<br>
 
-### `npm start`
+## cra 설치 후
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<br>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+`cd react-electron-12`
 
-### `npm test`
+`yarnn add --dev electron`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br>
 
-### `npm run build`
+## package.json에 entry point, 설명, 저자 기입
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```json
+{
+  "author": "peacepiece",
+  "description": "react with electron",
+  "main": "src/main.js"
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br>
 
-### `npm run eject`
+### src/main.js 파일 생성 후 아래 코드 입력
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<br>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+win.loadFile('localhost:3000')을 win.loadURL('localhost:3000')으로 변경
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```js
+const { app, BrowserWindow } = require('electron');
+const path = require('path');
+function createWindow() {
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  });
+  win.loadURL('http://localhost:3000');
+}
+app.whenReady().then(() => {
+  createWindow();
+});
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') app.quit();
+});
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<br>
 
-## Learn More
+### package 설치 concurrently, wait-on
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`yarn add --dev concurrently wait-on`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+> concurrently : 일렉트론과 리액트 프로세스를 동시에 실행하기 위해 사용합니다.
+>
+> wait-on : 프로세스 동시 수행시 한개의 프로세스가 완료되기를 기다리다 완료된 후 다음 프로세스를 수행하게 만들어 줍니다.
 
-### Code Splitting
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### package.json stripts 추가
 
-### Analyzing the Bundle Size
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```json
+{
+  "start": "concurrently \"yarn react-scripts start\" \"yarn electron\" ",
+  "electron": "wait-on http://localhost:3000 && electron ."
+}
+```
 
-### Making a Progressive Web App
+### .env 파일 작성
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+.env 생성 후 아래 코드를 기입
 
-### Advanced Configuration
+`BROWSER=none`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+> 이 코드로 브라우저는 실행되지않고 electron app만 실행되게 됩니다.
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> 결과
+>
+> > front server를 켜준 뒤 electron을 실행해야 했지만 (start : react-scripts start, electron : electron .)
+> > cmd에 한 줄만 입력함으로 실행할 수 있게 되었습니다.
