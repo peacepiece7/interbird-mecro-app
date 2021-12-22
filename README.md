@@ -12,7 +12,7 @@
 
 `cd react-electron-12`
 
-`yarnn add --dev electron`
+`yarn add --dev electron`
 
 <br>
 
@@ -37,8 +37,8 @@
 win.loadFile('localhost:3000')을 win.loadURL('localhost:3000')으로 변경
 
 ```js
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
+const { app, BrowserWindow } = require("electron");
+const path = require("path");
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
@@ -48,13 +48,13 @@ function createWindow() {
       contextIsolation: false,
     },
   });
-  win.loadURL('http://localhost:3000');
+  win.loadURL("http://localhost:3000");
 }
 app.whenReady().then(() => {
   createWindow();
 });
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit();
+app.on("window-all-closed", function () {
+  if (process.platform !== "darwin") app.quit();
 });
 ```
 
