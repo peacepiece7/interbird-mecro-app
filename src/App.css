@@ -1,9 +1,10 @@
 .App {
+  position: relative;
   text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 4rem;
   pointer-events: none;
 }
 
@@ -14,25 +15,58 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+}
+
+.App-content {
+  display: flex;
+  justify-content: center;
 }
 
 .App-link {
+  font-size: 1.2rem;
+  font-weight: bold;
+  position: absolute;
+  right: 5rem;
+  bottom: -5rem;
   color: #61dafb;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Layout */
+
+/* Upload Form */
+
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.gcp-pdf-from {
+  margin-top: 1rem;
+}
+input {
+  margin-top: 0.5rem;
+  height: 1.5rem;
+  border-radius: 0.3rem;
+}
+
+input:first-child {
+  width: 10rem;
+  padding-left: 10px;
+  margin-right: 0.3rem;
+  border-radius: 0.3rem;
+  border: 0.1rem solid rgba(0, 0, 0, 0);
+}
+
+input:nth-child(2) {
+  height: 1.8rem;
+  border: 0.1rem solid rgba(0, 0, 0, 0);
+  cursor: pointer;
 }
