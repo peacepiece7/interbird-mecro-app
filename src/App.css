@@ -32,8 +32,8 @@
   font-size: 1.2rem;
   font-weight: bold;
   position: absolute;
-  right: 5rem;
-  bottom: -5rem;
+  right: 4rem;
+  top: 27rem;
   color: #61dafb;
   cursor: pointer;
 }
@@ -42,7 +42,8 @@
 
 /* Upload Form */
 
-.upload-section {
+.upload-section,
+.download-section {
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -59,7 +60,6 @@ input {
 
 input:first-child {
   width: 10rem;
-  padding-left: 10px;
   margin-right: 0.3rem;
   border-radius: 0.3rem;
   border: 0.1rem solid rgba(0, 0, 0, 0);
@@ -69,4 +69,54 @@ input:nth-child(2) {
   height: 1.8rem;
   border: 0.1rem solid rgba(0, 0, 0, 0);
   cursor: pointer;
+}
+
+option {
+  width: 10rem;
+  padding-left: 10px;
+  margin-right: 0.3rem;
+  border-radius: 0.3rem;
+  border: 0.1rem solid rgba(0, 0, 0, 0);
+}
+
+/* Master Crawl API */
+
+select {
+  width: 10rem;
+  height: 2rem;
+  padding-left: 10px;
+  margin-right: 0.3rem;
+  border-radius: 0.3rem;
+  border: 0.1rem solid rgba(0, 0, 0, 0);
+}
+.download-select {
+  min-width: 10rem;
+  margin-right: 1rem;
+  font-size: 1.5rem;
+}
+.download-input {
+  min-width: 10rem;
+  margin-right: 1rem;
+  font-size: 1.5rem;
+  line-height: 3rem;
+}
+
+.download-inner {
+  height: 3rem;
+  display: flex;
+}
+
+.download-inner:last-child {
+  margin-top: 0.5rem;
+  justify-content: space-between;
+}
+
+/*  About pepe  */
+.pepe {
+  position: absolute;
+  width: 40rem;
+  top: -150px;
+  left: 10px;
+  opacity: 0.2;
+  z-index: -1;
 }

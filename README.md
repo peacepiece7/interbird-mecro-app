@@ -93,3 +93,5 @@ app.on("window-all-closed", function () {
 >
 > > front server를 켜준 뒤 electron을 실행해야 했지만 (start : react-scripts start, electron : electron .)
 > > cmd에 한 줄만 입력함으로 실행할 수 있게 되었습니다.
+
+// http://115.22.68.60/master/crawl/downApi.jsp?pre=ALL&mfr=Exact%20Match&dis=digikey&start=700&count=100&mfr=weidm?ller
