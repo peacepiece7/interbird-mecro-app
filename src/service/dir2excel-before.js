@@ -9,7 +9,7 @@ const afterWs = wb.addWorksheet("AFTER");
 // rev 12.16.2021
 // ! INPUT :  바탕화면에서 master_crawler폴더를 찾아서 실행해야합니다. 작업 컴퓨터에서 경로를 변경해주세요
 const dirPath = path.join(__dirname, "..", "..", "..", "master_crawler");
-const backupPath = path.join(__dirname, "..", "..", "..", "crawling_backup");
+const backupPath = path.join(__dirname, "..", "..", "..", "master_crawler", "backup");
 fs.readdir(backupPath, (err) => {
   if (err) {
     fs.mkdirSync(backupPath);
@@ -28,17 +28,24 @@ const getMfDir = (dir) => {
   });
 };
 
+// ! ?<>\/.등 파일 이름으로 쓸 수 없는 문자를 어떻게 저장해야 좋을지 상담해보기
+// ! 1. 저장 할 수 없는 문자를 - 으로 저장한다. 대신 .txt파일에 저장할 수 없는 문자가 포함된 원본을 저장해둔다.
+// ! 1-1 excel에는 저장 할 수 없는 문자를 - 으로 변경한 pdf를 저장해둔다.
 const getFullDir = (dirPath, mfDirs) => {
   const result = [];
   for (const mfDir of mfDirs) {
     const files = fs.readdirSync(`${dirPath}/${mfDir}`);
     if (files[0]) {
       for (let f of files) {
-        if (f.toLowerCase().includes(".pdf")) {
-          const file = files.filter((v) => f.slice(0, f.length - 4) === v.slice(0, v.length - 4)).length
-            ? null
-            : f.slice(0, f.length - 4);
-          file && result.push({ mf: mfDir, pn: file });
+        if (f.toLowerCase().includes(".txt")) {
+          const pname = fs.readFileSync(`${dirPath}/${mfDir}/${f}`, "utf-8");
+          result.push({ mf: mfDir, pn: pname });
+        } else if (f.toLowerCase().includes(".pdf")) {
+          const file = files.filter((v) => v.slice(0, v.length - 4) === f.slice(0, f.length - 4));
+          if (file.length > 1) {
+            const pname = fs.readFileSync(`${dirPath}/${mfDir}/${file[0].slice(0, file[0].length - 4)}.txt`, "utf-8");
+            result.push({ mf: mfDir, pn: pname });
+          }
         }
       }
     }
@@ -64,8 +71,8 @@ module.exports = async function saveDirToExcel() {
       afterWs.cell(i + 1, 1).string(mf);
       afterWs.cell(i + 1, 2).string(pn);
 
-      wb.write(`${dir}/crawling_work_sheet.xlsx`);
-      wb.write(`${dir}/crawling_work_sheet_backup.xlsx`);
+      wb.write(`${dirPath}/crawling_work_sheet.xlsx`);
+      wb.write(`${backupPath}/crawling_work_sheet_backup.xlsx`);
     }
     return "저장이 완료되었습니다.";
   } catch (error) {
