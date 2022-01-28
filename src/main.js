@@ -4,6 +4,10 @@ const {
   SEND_GCPTAR_DATA,
   SEND_60TAR_DATA,
   SEND_APIURL_DATA,
+  SEND_AFTER_EXCEL,
+  SEND_BEFORE_EXCEL,
+  SEND_COLLECTION_TOOL,
+  SEND_COMBINATION_TOOL,
 } = require("./constants");
 const axios = require("axios");
 const fs = require("fs");
@@ -15,11 +19,13 @@ const gcpPdfUploader = require("./service/gcppdf");
 const gcpTarUploader = require("./service/gcptar");
 const tar60Uploader = require("./service/60tar");
 const masterCrawlDonwloader = require("./service/downloader");
+const saveDirToExcel = require("./service/dir2excel-before");
+const changeDirToExcel = require("./service/dir2excel-after");
 
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
-    height: 600,
+    height: 700,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -46,7 +52,7 @@ ipcMain.on(SEND_60TAR_DATA, (event, arg) => {
   tar60Uploader(arg);
 });
 
-// SEND APIURL DATA
+// SEND API URL DATA
 ipcMain.on(SEND_APIURL_DATA, async (event, arg) => {
   try {
     const response = await axios({
@@ -61,6 +67,26 @@ ipcMain.on(SEND_APIURL_DATA, async (event, arg) => {
 });
 app.whenReady().then(() => {
   createWindow();
+});
+
+// SEND BEFROE EXCEL
+ipcMain.on(SEND_BEFORE_EXCEL, async (e, arg) => {
+  try {
+    const result = await saveDirToExcel();
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// SEND AFETER EXCEL
+ipcMain.on(SEND_AFTER_EXCEL, async (e, arg) => {
+  try {
+    const result = await changeDirToExcel();
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.on("window-all-closed", function () {

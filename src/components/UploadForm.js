@@ -30,14 +30,14 @@ export default function UploadForm() {
       </div>
       <div>
         <div className="gcp-pdf-from">
-          <span>60 SERVER TAR UPLOAD</span>
+          <span>GPC TAR UPLOAD</span>
           <form onSubmit={sendGcpTar}>
             <input type="text" placeholder="enter a manufacture"></input>
             <input type="submit" value="upload"></input>
           </form>
         </div>
         <div className="gcp-pdf-from">
-          <span>GPC TAR UPLOAD</span>
+          <span>60 SERVER TAR UPLOAD</span>
           <form onSubmit={send60Tar}>
             <input type="text" placeholder="enter a manufacture"></input>
             <input type="submit" value="upload"></input>

@@ -2,6 +2,7 @@ const puppeteer = require("puppeteer");
 
 module.exports = async function gcpTarUploader(keyword) {
   try {
+    console.log("gcp server tar 업로드를 시작합니다.");
     const folderPath = `${__dirname.split("Desktop")[0]}\\Desktop\\tar`;
 
     const browser = await puppeteer.launch({
@@ -47,9 +48,7 @@ module.exports = async function gcpTarUploader(keyword) {
 
       const partNumber = await page.evaluate(() => {
         if (document.querySelector("body > center table tbody tr[align=center]:nth-child(2) td")) {
-          return document.querySelector(
-            "body > center table tbody tr[align=center]:nth-child(2) td"
-          ).textContent;
+          return document.querySelector("body > center table tbody tr[align=center]:nth-child(2) td").textContent;
         }
         return null;
       });

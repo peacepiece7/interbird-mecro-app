@@ -2,7 +2,8 @@ const puppeteer = require("puppeteer");
 
 module.exports = async function tar60Uploader(keyword) {
   try {
-    const folderPath = `${__dirname.split("Desktop")[0]}\\Desctop\\tar`;
+    console.log("60 server tar업로드를 시작합니다.");
+    const folderPath = `${__dirname.split("Desktop")[0]}\\Desktop\\tar`;
 
     const browser = await puppeteer.launch({
       headless: false,
@@ -65,6 +66,8 @@ module.exports = async function tar60Uploader(keyword) {
         check = false;
       }
     }
+    await page.close();
+    await browser.close();
   } catch (error) {
     console.error(error);
   }

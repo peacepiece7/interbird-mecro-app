@@ -3,6 +3,7 @@ const fs = require("fs");
 
 module.exports = async function gcpPdfUploader(siteName) {
   try {
+    console.log("gcp server pdf 업로드를 시작합니다.");
     const browser = await puppeteer.launch({
       headless: false,
       args: ["--window-size:1400,1400"],

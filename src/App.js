@@ -5,12 +5,11 @@ import UploadForm from "./components/UploadForm";
 import MasterCrawlAPIForm from "./components/MasterCrawlAPIForm";
 
 function App() {
-  const [go, setGo] = useState(true);
+  const [go, setGo] = useState(false);
 
   const handleOnClick = (e) => {
     e.preventDefault();
     setGo((state) => !state);
-    console.log(go);
   };
   return (
     <div className="App">
@@ -18,9 +17,7 @@ function App() {
         <h1 className="title">Interbird Mecro</h1>
         <img className="pepe" src="/pepe.png" alt="pepe"></img>
       </header>
-      <content className="App-content">
-        {go ? <UploadForm></UploadForm> : <MasterCrawlAPIForm></MasterCrawlAPIForm>}
-      </content>
+      <content className="App-content">{go ? <UploadForm /> : <MasterCrawlAPIForm />}</content>
       <div className="App-link">
         {go ? (
           <span onClick={handleOnClick}>{"go master/crawl parser ->"}</span>
