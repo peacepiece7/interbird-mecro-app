@@ -25,11 +25,11 @@ function Tool() {
       </header>
       <content className="Tool-content">
         <div className="Tool-box">
-          <span>pdf to cexcel before</span>
+          <span>pdf to excel before</span>
           <button onClick={handleExcelBefore}>before</button>
         </div>
         <div className="Tool-box">
-          <span>pdf to cexcel after</span>
+          <span>pdf to excel after</span>
           <button onClick={handleExcelAfter}>after</button>
         </div>
         <div className="Tool-box">

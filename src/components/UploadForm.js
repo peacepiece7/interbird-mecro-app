@@ -22,7 +22,7 @@ export default function UploadForm() {
   return (
     <section className="upload-section">
       <div className="gcp-pdf-from">
-        <span>GPC PDF UPLOAD</span>
+        <span>GCP PDF UPLOAD</span>
         <form onSubmit={sendGcpPdf}>
           <input type="text" placeholder="enter a manufacture"></input>
           <input type="submit" value="upload"></input>
@@ -30,7 +30,7 @@ export default function UploadForm() {
       </div>
       <div>
         <div className="gcp-pdf-from">
-          <span>GPC TAR UPLOAD</span>
+          <span>GCP TAR UPLOAD</span>
           <form onSubmit={sendGcpTar}>
             <input type="text" placeholder="enter a manufacture"></input>
             <input type="submit" value="upload"></input>
