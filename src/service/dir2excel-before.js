@@ -33,19 +33,16 @@ const getMfDir = (dir) => {
 // ! 1-1 excel에는 저장 할 수 없는 문자를 - 으로 변경한 pdf를 저장해둔다.
 const getFullDir = (dirPath, mfDirs) => {
   const result = [];
+  console.log("mfDirs@", mfDirs);
   for (const mfDir of mfDirs) {
+    console.log("mfDir@", mfDir);
     const files = fs.readdirSync(`${dirPath}/${mfDir}`);
+    console.log("files@", files);
     if (files[0]) {
       for (let f of files) {
-        if (f.toLowerCase().includes(".txt")) {
-          const pname = fs.readFileSync(`${dirPath}/${mfDir}/${f}`, "utf-8");
-          result.push({ mf: mfDir, pn: pname });
-        } else if (f.toLowerCase().includes(".pdf")) {
-          const file = files.filter((v) => v.slice(0, v.length - 4) === f.slice(0, f.length - 4));
-          if (file.length > 1) {
-            const pname = fs.readFileSync(`${dirPath}/${mfDir}/${file[0].slice(0, file[0].length - 4)}.txt`, "utf-8");
-            result.push({ mf: mfDir, pn: pname });
-          }
+        console.log(f);
+        if (f.toLowerCase().includes(".pdf")) {
+          result.push({ mf: mfDir, pn: f.slice(0, f.length - 4) });
         }
       }
     }
@@ -57,13 +54,14 @@ module.exports = async function saveDirToExcel() {
   try {
     const mfDirs = await getMfDir(dirPath);
     const result = getFullDir(dirPath, mfDirs);
+    console.log("result@", result);
     for (let i = 0; i < result.length; i++) {
       const mf = result[i].mf;
       const pn = result[i].pn;
 
       // rev 12.16.2021
       //! OUTPUT : 작업 컴퓨터에서 바탕화면 폴더의 경로를 지정해주세요(window)
-      const dir = path.join(__dirname, "..", "..");
+      // const dir = path.join(__dirname, "..", "..");
 
       ws.cell(i + 1, 1).string(mf);
       ws.cell(i + 1, 2).string(pn);

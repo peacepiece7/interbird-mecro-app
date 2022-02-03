@@ -1,4 +1,6 @@
 .Tool {
+  font-size: 1.5rem;
+  box-sizing: border-box;
   position: relative;
   text-align: center;
 }
@@ -24,8 +26,20 @@
 }
 
 .Tool-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 400px;
+}
+.Tool-box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
 }
 
 .Tool-link {

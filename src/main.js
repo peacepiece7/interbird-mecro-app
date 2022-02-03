@@ -21,15 +21,18 @@ const tar60Uploader = require("./service/60tar");
 const masterCrawlDonwloader = require("./service/downloader");
 const saveDirToExcel = require("./service/dir2excel-before");
 const changeDirToExcel = require("./service/dir2excel-after");
+const combinePdf = require("./service/combine-pdfs");
+const collectPdf = require("./service/collecting-pdfs");
 
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
-    height: 700,
+    height: 650,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
     },
+    title: "Loading ...",
   });
   win.loadURL("http://localhost:3000");
 }
@@ -84,6 +87,22 @@ ipcMain.on(SEND_AFTER_EXCEL, async (e, arg) => {
   try {
     const result = await changeDirToExcel();
     console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+});
+// SEND COLLECTION TOOL
+ipcMain.on(SEND_COLLECTION_TOOL, async (e, arg) => {
+  try {
+    collectPdf();
+  } catch (error) {
+    console.log(error);
+  }
+});
+// SEND COMBINATION TOOL
+ipcMain.on(SEND_COMBINATION_TOOL, async (e, arg) => {
+  try {
+    combinePdf();
   } catch (error) {
     console.log(error);
   }

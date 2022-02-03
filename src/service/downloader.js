@@ -5,7 +5,10 @@ const axios = require("axios");
 module.exports = async function masterCrawlDonwloader(json) {
   try {
     const items = json.response.items;
-    const mfrFolderName = json.request.manufacture;
+    const mfrFolderName = json.request.manufacture
+      .split("")
+      .map((v) => v.replace(/\.|,|\/|\\|\?|\*|:|<|>|"|'|`/g))
+      .join("");
 
     const basePath = path.join(__dirname, "..", "..", "..", "master_crawler");
     fs.readdir(basePath, (error) => {

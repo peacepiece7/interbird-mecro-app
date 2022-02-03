@@ -15,7 +15,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1 className="title">Interbird Mecro</h1>
-        <img className="pepe" src="/pepe.png" alt="pepe"></img>
+        <img draggable="false" className="pepe" src="/pepe.png" alt="pepe"></img>
       </header>
       <content className="App-content">{go ? <UploadForm /> : <MasterCrawlAPIForm />}</content>
       <div className="App-link">

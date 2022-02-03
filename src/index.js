@@ -9,8 +9,10 @@ import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Link to="/">home</Link>
-      <Link to="/tool">tool</Link>
+      <div className="link-inner">
+        <Link to="/">Home</Link>
+        <Link to="/tool">Tool</Link>
+      </div>
       <Routes>
         <Route exact path="/" element={<App />}></Route>
         <Route path="/tool" element={<Tool />}></Route>

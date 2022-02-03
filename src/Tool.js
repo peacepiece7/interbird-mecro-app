@@ -1,5 +1,5 @@
 import "./Tool.css";
-import React, { useState } from "react";
+import React from "react";
 
 import { SEND_AFTER_EXCEL, SEND_BEFORE_EXCEL, SEND_COLLECTION_TOOL, SEND_COMBINATION_TOOL } from "./constants";
 
@@ -23,20 +23,20 @@ function Tool() {
         <h1 className="title">Interbird Mecro</h1>
         <img className="pepe" src="/pepe.png" alt="pepe"></img>
       </header>
-      <content>
-        <div className="Tool-excel-before-box">
+      <content className="Tool-content">
+        <div className="Tool-box">
           <span>pdf to cexcel before</span>
           <button onClick={handleExcelBefore}>start</button>
         </div>
-        <div className="Tool-excel-after-box">
+        <div className="Tool-box">
           <span>pdf to cexcel after</span>
           <button onClick={handleExcelAfter}>start</button>
         </div>
-        <div className="Tool-excel-after-box">
+        <div className="Tool-box">
           <span>combination</span>
           <button onClick={handlecombination}>start</button>
         </div>
-        <div className="Tool-excel-after-box">
+        <div className="Tool-box">
           <span>collection</span>
           <button onClick={handlecollection}>start</button>
         </div>
