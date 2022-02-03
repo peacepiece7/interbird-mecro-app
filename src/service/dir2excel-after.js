@@ -21,7 +21,7 @@ const getMfDir = (dir) => {
 
 module.exports = async function changeDirToExcel() {
   try {
-    console.log("시작합니다. pdf to excel after");
+    console.log("pdf to excel after 시작합니다. ");
     const excelDir = path.join(__dirname, "..", "..", "..", "master_crawler", "crawling_work_sheet.xlsx");
     const folderDir = path.join(__dirname, "..", "..", "..", "master_crawler");
     const wb = xlsx.readFile(excelDir);
@@ -49,7 +49,7 @@ module.exports = async function changeDirToExcel() {
       add_to_sheet(ws, newCell, "string", result[i]["pn"]);
     }
     xlsx.writeFile(wb, excelDir);
-    return "변경되었습니다.";
+    console.log("변경되었습니다.");
   } catch (error) {
     console.log(error);
   }

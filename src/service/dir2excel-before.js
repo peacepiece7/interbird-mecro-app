@@ -33,14 +33,12 @@ const getMfDir = (dir) => {
 // ! 1-1 excel에는 저장 할 수 없는 문자를 - 으로 변경한 pdf를 저장해둔다.
 const getFullDir = (dirPath, mfDirs) => {
   const result = [];
-  console.log("mfDirs@", mfDirs);
+
   for (const mfDir of mfDirs) {
-    console.log("mfDir@", mfDir);
     const files = fs.readdirSync(`${dirPath}/${mfDir}`);
-    console.log("files@", files);
+
     if (files[0]) {
       for (let f of files) {
-        console.log(f);
         if (f.toLowerCase().includes(".pdf")) {
           result.push({ mf: mfDir, pn: f.slice(0, f.length - 4) });
         }
@@ -52,9 +50,10 @@ const getFullDir = (dirPath, mfDirs) => {
 
 module.exports = async function saveDirToExcel() {
   try {
+    console.log("pdf to excel before 시작합니다.");
     const mfDirs = await getMfDir(dirPath);
     const result = getFullDir(dirPath, mfDirs);
-    console.log("result@", result);
+
     for (let i = 0; i < result.length; i++) {
       const mf = result[i].mf;
       const pn = result[i].pn;
@@ -72,7 +71,7 @@ module.exports = async function saveDirToExcel() {
       wb.write(`${dirPath}/crawling_work_sheet.xlsx`);
       wb.write(`${backupPath}/crawling_work_sheet_backup.xlsx`);
     }
-    return "저장이 완료되었습니다.";
+    console.log("저장이 완료되었습니다.");
   } catch (error) {
     console.log(error);
   }

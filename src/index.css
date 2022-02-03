@@ -63,7 +63,7 @@ button {
   cursor: pointer;
 }
 
-button:click {
+button:focus {
   width: 66px;
   height: 36px;
   margin: 2px;

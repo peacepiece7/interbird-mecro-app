@@ -75,8 +75,7 @@ app.whenReady().then(() => {
 // SEND BEFROE EXCEL
 ipcMain.on(SEND_BEFORE_EXCEL, async (e, arg) => {
   try {
-    const result = await saveDirToExcel();
-    console.log(result);
+    await saveDirToExcel();
   } catch (error) {
     console.log(error);
   }
@@ -85,8 +84,7 @@ ipcMain.on(SEND_BEFORE_EXCEL, async (e, arg) => {
 // SEND AFETER EXCEL
 ipcMain.on(SEND_AFTER_EXCEL, async (e, arg) => {
   try {
-    const result = await changeDirToExcel();
-    console.log(result);
+    await changeDirToExcel();
   } catch (error) {
     console.log(error);
   }

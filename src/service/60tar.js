@@ -66,8 +66,9 @@ module.exports = async function tar60Uploader(keyword) {
         check = false;
       }
     }
-    await page.close();
-    await browser.close();
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    console.log("@@@@@@@@@@@@@@@@@@@@@ 60S UPLOAD DONE @@@@@@@@@@@@@@@@@@@@@");
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
   } catch (error) {
     console.error(error);
   }

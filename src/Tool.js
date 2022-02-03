@@ -26,19 +26,19 @@ function Tool() {
       <content className="Tool-content">
         <div className="Tool-box">
           <span>pdf to cexcel before</span>
-          <button onClick={handleExcelBefore}>start</button>
+          <button onClick={handleExcelBefore}>before</button>
         </div>
         <div className="Tool-box">
           <span>pdf to cexcel after</span>
-          <button onClick={handleExcelAfter}>start</button>
+          <button onClick={handleExcelAfter}>after</button>
         </div>
         <div className="Tool-box">
           <span>combination</span>
-          <button onClick={handlecombination}>start</button>
+          <button onClick={handlecombination}>combine</button>
         </div>
         <div className="Tool-box">
           <span>collection</span>
-          <button onClick={handlecollection}>start</button>
+          <button onClick={handlecollection}>collect</button>
         </div>
       </content>
       <div className="Tool-link"></div>
