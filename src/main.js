@@ -39,11 +39,6 @@ function createWindow() {
 
 // SEND GCP PDF
 ipcMain.on(SEND_GCPPDF_DATA, (event, arg) => {
-  fs.readdir(path.join(__dirname, "..", "..", "testFolder"), (error) => {
-    if (error) {
-      fs.mkdirSync(path.join(__dirname, "..", "..", "testFolder"));
-    }
-  });
   gcpPdfUploader(arg);
 });
 // SEND GCP TAR
@@ -70,6 +65,11 @@ ipcMain.on(SEND_APIURL_DATA, async (event, arg) => {
 });
 app.whenReady().then(() => {
   createWindow();
+  fs.readdir(path.join(__dirname, "..", "..", "master_crawler"), (error) => {
+    if (error) {
+      fs.mkdirSync(path.join(__dirname, "..", "..", "master_crawler"));
+    }
+  });
 });
 
 // SEND BEFROE EXCEL

@@ -10,11 +10,6 @@ const afterWs = wb.addWorksheet("AFTER");
 // ! INPUT :  바탕화면에서 master_crawler폴더를 찾아서 실행해야합니다. 작업 컴퓨터에서 경로를 변경해주세요
 const dirPath = path.join(__dirname, "..", "..", "..", "master_crawler");
 const backupPath = path.join(__dirname, "..", "..", "..", "master_crawler", "backup");
-fs.readdir(backupPath, (err) => {
-  if (err) {
-    fs.mkdirSync(backupPath);
-  }
-});
 
 const getMfDir = (dir) => {
   return new Promise((resolve, reject) => {
@@ -51,6 +46,12 @@ const getFullDir = (dirPath, mfDirs) => {
 module.exports = async function saveDirToExcel() {
   try {
     console.log("pdf to excel before 시작합니다.");
+    fs.readdir(backupPath, (err) => {
+      if (err) {
+        fs.mkdirSync(backupPath);
+      }
+    });
+
     const mfDirs = await getMfDir(dirPath);
     const result = getFullDir(dirPath, mfDirs);
 

@@ -2,6 +2,21 @@ const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
 
+function getPdf(mfrURL) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(mfrURL, {
+        responseType: "arraybuffer",
+      })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch(() => {
+        resolve(false);
+      });
+  });
+}
+
 module.exports = async function masterCrawlDonwloader(json) {
   try {
     console.log("download를 시작합니다.");
@@ -11,7 +26,7 @@ module.exports = async function masterCrawlDonwloader(json) {
       .map((v) => v.replace(/\.|,|\/|\\|\?|\*|:|<|>|"|'|`/g, ""))
       .join("");
 
-    console.log("mfrFolderName@", mfrFolderName);
+    console.log(items);
     const basePath = path.join(__dirname, "..", "..", "..", "master_crawler");
     fs.readdir(basePath, (error) => {
       if (error) {
@@ -26,27 +41,26 @@ module.exports = async function masterCrawlDonwloader(json) {
       }
     });
 
-    console.log("items", items);
-
     for (let item of items) {
-      console.log("url iitem.mfr", item.mfr);
-      const mfrURL = item.mfr.includes("https:") || item.mfr.includes("http:") ? item.mfr : `https:${item.mfr}`;
+      const mfrURL = item.mfr.includes("https:") ? item.mfr : `https:${item.mfr}`;
 
-      const response = await axios({
-        url: mfrURL,
-        mehtod: "GET",
-        responseType: "arraybuffer",
-      });
+      const response = await getPdf(mfrURL);
       if (response.data && (item.pname.includes("/") || item.pname.includes("."))) {
         const savablePname = item.pname.split("/").join("-").split(".").join("-");
         fs.writeFileSync(`${basePath}/${mfrFolderName}/${savablePname}.pdf`, response.data);
         fs.writeFileSync(`${basePath}/${mfrFolderName}/${savablePname}.txt`, `${item.pname}`);
+        console.log("");
+        console.log(mfrURL);
         console.log(`✅ ${item.pname}.pdf 가 저장되었습니다.`);
       } else if (response.data) {
         fs.writeFileSync(`${basePath}/${mfrFolderName}/${item.pname}.pdf`, response.data);
+        console.log("");
+        console.log(mfrURL);
         console.log(`✅ ${item.pname}.pdf 가 저장되었습니다.`);
       } else {
         fs.writeFileSync(`${basePath}/${mfrFolderName}/${item.pname}.txt`, `${item.mfr}`);
+        console.log("");
+        console.log(mfrURL);
         console.log(`❌ ${item.pname}의 url이 유효하지 않습니다. 해당 이름에 url이 들어있어요 확인해주세요.`);
       }
     }
